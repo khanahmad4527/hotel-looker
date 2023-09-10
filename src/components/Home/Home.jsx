@@ -18,7 +18,8 @@ const Home = () => {
   const [hotelData, setHotelData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
-  const [totalResults] = useState(31);
+  const [hotelPerPage] = useState(10);
+  const [totalResults, setTotalResults] = useState(31);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const { dummyHotelData } = UserAuth();
@@ -30,8 +31,28 @@ const Home = () => {
         setTimeout(() => {
           resolve(dummyHotelData);
         }, 500);
-      }).then((data) => setHotelData(data));
-      setLoading(false);
+      }).then((data) => {
+        if (searchQuery) {
+          const newData = data.filter((hotel) =>
+            hotel.name.toLowerCase().includes(searchQuery.toLowerCase())
+          );
+          setTotalResults(newData.length);
+          setHotelData(
+            newData.slice(
+              (page - 1) * hotelPerPage,
+              (page - 1) * hotelPerPage + hotelPerPage
+            )
+          );
+        } else {
+          setTotalResults(data.length);
+          const newData = data.slice(
+            (page - 1) * hotelPerPage,
+            (page - 1) * hotelPerPage + hotelPerPage
+          );
+          setHotelData(newData);
+        }
+        setLoading(false);
+      });
     } catch (error) {
       console.log(error);
       setError(true);
@@ -92,9 +113,9 @@ const Home = () => {
 
         <Box width={"90%"} m={"50px auto"}>
           {loading ? (
-            <Heading>loading...</Heading>
+            <Heading textAlign="center">loading...</Heading>
           ) : error ? (
-            <Heading>Error...</Heading>
+            <Heading textAlign="center">Error...</Heading>
           ) : (
             <Grid
               templateColumns={{
@@ -106,11 +127,9 @@ const Home = () => {
               padding={"10px"}
             >
               {hotelData &&
-                hotelData
-                  .slice((page - 1) * 10, (page - 1) * 10 + 10)
-                  .map((hotel, index) => {
-                    return <HotelCard key={index} hotel={hotel} index={index}/>;
-                  })}
+                hotelData.map((hotel, index) => {
+                  return <HotelCard key={index} hotel={hotel} />;
+                })}
             </Grid>
           )}
         </Box>
