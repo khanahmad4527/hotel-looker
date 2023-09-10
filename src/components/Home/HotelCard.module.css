@@ -1,0 +1,21 @@
+/* Small screens (up to 600px) */
+@media screen and (max-width: 600px) {
+    .cardContainer {
+      width: 280px;
+    }
+  }
+  
+  /* Medium screens (601px to 1024px) */
+  @media screen and (min-width: 601px) and (max-width: 1024px) {
+    .cardContainer {
+      width: 280px;
+    }
+  }
+  
+  /* Large screens (greater than 1024px) */
+  @media screen and (min-width: 1025px) {
+    .cardContainer {
+      width: 350px;
+    }
+  }
+  

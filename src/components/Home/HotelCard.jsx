@@ -17,29 +17,55 @@ import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import styles from "./HotelCard.module.css";
+import { useNavigate } from "react-router-dom/dist";
 
-const HotelCard = ({ hotel }) => {
+const HotelCard = ({ hotel, index: hotelID }) => {
   const toast = useToast();
+  const navigate = useNavigate();
 
   const carouselSettings = {
+    dots: false,
     infinite: true,
-    speed: 200,
-    slidesToShow: 6,
+    speed: 2000,
+    slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: 0,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    cssEase: "linear",
   };
 
   return (
-    <Card maxW="sm" margin={"auto"}>
+    <Card className={styles.cardContainer} margin={"auto"}>
       <CardBody>
-        <Image
-          height={"180px"}
-          width={"200px"}
-          objectFit={"contain"}
-          src={hotel?.images[0]}
-          alt={hotel?.name}
-          borderRadius="lg"
-        />
+        <Slider
+          {...carouselSettings}
+          style={{
+            margin: "auto",
+          }}
+        >
+          {hotel?.images?.map((image, index) => {
+            return (
+              <Box
+                key={index}
+                cursor="pointer"
+                onClick={() => navigate(`/hotel/${hotelID}`)}
+              >
+                <Image
+                  width={"100%"}
+                  height={"200px"}
+                  objectFit={"contain"}
+                  src={image}
+                  alt={hotel?.name}
+                  borderRadius="lg"
+                  margin={"auto"}
+                />
+              </Box>
+            );
+          })}
+        </Slider>
+
         <Stack mt="6" spacing="3">
           <Heading size="md">{hotel?.name}</Heading>
           <Text color="blue.600" fontSize="2xl">

@@ -99,8 +99,8 @@ const Home = () => {
             <Grid
               templateColumns={{
                 sm: "repeat(1, 1fr)",
-                md: "repeat(3, 1fr)",
-                lg: "repeat(5, 1fr)",
+                md: "repeat(2, 1fr)",
+                lg: "repeat(3, 1fr)",
               }}
               gap={6}
               padding={"10px"}
@@ -109,7 +109,7 @@ const Home = () => {
                 hotelData
                   .slice((page - 1) * 10, (page - 1) * 10 + 10)
                   .map((hotel, index) => {
-                    return <HotelCard key={index} hotel={hotel} />;
+                    return <HotelCard key={index} hotel={hotel} index={index}/>;
                   })}
             </Grid>
           )}
