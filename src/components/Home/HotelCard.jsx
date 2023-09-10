@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Card,
   CardBody,
@@ -9,38 +10,62 @@ import {
   Divider,
   ButtonGroup,
   Button,
+  Box,
+  useToast,
 } from "@chakra-ui/react";
-import React from "react";
+import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-const HotelCard = () => {
+const HotelCard = ({ hotel }) => {
+  const toast = useToast();
+
+  const carouselSettings = {
+    infinite: true,
+    speed: 200,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+    initialSlide: 0,
+  };
+
   return (
-    <Card maxW="sm">
+    <Card maxW="sm" margin={"auto"}>
       <CardBody>
         <Image
-          src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-          alt="Green double couch with wooden legs"
+          height={"180px"}
+          width={"200px"}
+          objectFit={"contain"}
+          src={hotel?.images[0]}
+          alt={hotel?.name}
           borderRadius="lg"
         />
         <Stack mt="6" spacing="3">
-          <Heading size="md">Living room Sofa</Heading>
-          <Text>
-            This sofa is perfect for modern tropical spaces, baroque inspired
-            spaces, earthy toned spaces and for people who love a chic design
-            with a sprinkle of vintage design.
-          </Text>
+          <Heading size="md">{hotel?.name}</Heading>
           <Text color="blue.600" fontSize="2xl">
-            $450
+            ${hotel?.price}
           </Text>
+          <Rating rating={hotel?.start} numReviews={hotel?.rating} />
         </Stack>
       </CardBody>
       <Divider />
       <CardFooter>
         <ButtonGroup spacing="2">
-          <Button variant="solid" colorScheme="blue">
-            Buy now
-          </Button>
-          <Button variant="ghost" colorScheme="blue">
-            Add to cart
+          <Button
+            variant="solid"
+            colorScheme="blue"
+            onClick={() =>
+              toast({
+                title: "Booking Confirm.",
+                description: "Your booking has been confirmed",
+                status: "success",
+                position: "top",
+                duration: 2000,
+                isClosable: true,
+              })
+            }
+          >
+            Book now
           </Button>
         </ButtonGroup>
       </CardFooter>
@@ -49,3 +74,31 @@ const HotelCard = () => {
 };
 
 export default HotelCard;
+
+function Rating({ rating, numReviews }) {
+  return (
+    <Box display="flex" alignItems="center" color={"yellow.500"}>
+      {Array(5)
+        .fill("")
+        .map((_, i) => {
+          const roundedRating = Math.round(rating * 2) / 2;
+          if (roundedRating - i >= 1) {
+            return (
+              <BsStarFill
+                key={i}
+                style={{ marginLeft: "1" }}
+                color={i < rating ? "teal.500" : "gray.300"}
+              />
+            );
+          }
+          if (roundedRating - i === 0.5) {
+            return <BsStarHalf key={i} style={{ marginLeft: "1" }} />;
+          }
+          return <BsStar key={i} style={{ marginLeft: "1" }} />;
+        })}
+      <Box as="span" ml="2" fontSize="sm" color="blue.600">
+        {numReviews} review{numReviews > 1 && "s"}
+      </Box>
+    </Box>
+  );
+}
