@@ -8,6 +8,7 @@ This web application allows users to log in with Firebase Google authentication,
 - [Tech Stack](#tech-stack)
 - [Features](#features)
 - [Installation](#installation)
+- [Usage](#usage)
 - [Screenshots](#screenshots)
 - [Demo](#demo)
 
@@ -66,6 +67,24 @@ npm install
 ```bash
 npm run start
 ```
+
+## Usage
+
+1. **Log In**: Launch the app, and you will be prompted to log in with your Google account using Firebase authentication.
+
+2. **Home Page**: On the Home Page, you can:
+
+   - **View Hotel Cards**: Browse through hotel cards with details.
+   - **Search for a Hotel**: Utilize the search feature to find a specific hotel.
+   - **Expand Hotel Details**: Click on a hotel card to expand and view review comments.
+
+3. **Booking a Room**: To book a room, follow these steps:
+
+   - Find the hotel you want to book.
+   - Click the "Book Now" button on the hotel card.
+   - You will receive an in-app notification confirming your booking with the message "Your booking has been confirmed."
+
+4. **Log Out**: To log out of the app, click on the "Logout" option.
 
 ## Screenshots
 
