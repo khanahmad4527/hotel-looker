@@ -1,4 +1,4 @@
-# the-movie
+# hotel-looker
 
 This web application allows users to log in with Firebase Google authentication, search for hotels, view hotel details, read reviews, and book rooms. It fetches hotel data from the Fake Hotel API.
 
