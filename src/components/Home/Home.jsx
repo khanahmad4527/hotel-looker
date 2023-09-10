@@ -6,7 +6,6 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import LogoutButton from "../Auth/LogoutButton";
@@ -126,10 +125,13 @@ const Home = () => {
               gap={6}
               padding={"10px"}
             >
-              {hotelData &&
+              {hotelData && hotelData.length === 0 ? (
+                <Heading>No data found...</Heading>
+              ) : (
                 hotelData.map((hotel, index) => {
                   return <HotelCard key={index} hotel={hotel} />;
-                })}
+                })
+              )}
             </Grid>
           )}
         </Box>
