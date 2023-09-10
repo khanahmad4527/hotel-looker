@@ -82,7 +82,7 @@ npm run start
 
 <div align="center">
   <h3>Hotel Review</h3>
-  <img src="https://res.cloudinary.com/dalqx198y/image/upload/v1694352233/Screenshot_470_ububj8.pngg" width="500">
+  <img src="https://res.cloudinary.com/dalqx198y/image/upload/v1694352233/Screenshot_470_ububj8.png" width="500">
 </div>
 
 ## Demo
